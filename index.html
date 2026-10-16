@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POLBAN Student Hub</title>
+<style>
+:root{
+  --navy:#082b59; --blue:#0b63ce; --cyan:#12b7ff; --gold:#f7c948;
+  --bg:#f4f8fc; --text:#132238; --muted:#6d7b8c; --white:#fff;
+  --shadow:0 18px 50px rgba(8,43,89,.13);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+.bg-orb{position:fixed;border-radius:50%;filter:blur(8px);opacity:.22;z-index:-1;animation:float 10s ease-in-out infinite}
+.orb1{width:360px;height:360px;background:#20a8ff;top:-130px;right:-80px}
+.orb2{width:260px;height:260px;background:#f7c948;left:-100px;bottom:10%;animation-delay:-4s}
+@keyframes float{50%{transform:translate(20px,25px) scale(1.08)}}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(18px);border-bottom:1px solid #e7edf4}
+.nav-inner{max-width:1180px;margin:auto;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--navy)}
+.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,var(--navy),var(--blue));display:grid;place-items:center;color:#fff;box-shadow:0 8px 22px #0b63ce44}
+.logo:before{content:"P";font-size:23px;font-weight:900}
+.navlinks{display:flex;gap:7px}
+.navlinks button{background:transparent;padding:10px 14px;border-radius:10px;color:#526176;font-weight:700}
+.navlinks button:hover{background:#edf5ff;color:var(--blue)}
+.menu{display:none;background:#edf5ff;padding:9px;border-radius:10px}
+
+.hero{max-width:1180px;margin:0 auto;padding:70px 22px 45px;display:grid;grid-template-columns:1.1fr .9fr;gap:45px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#e8f4ff;color:var(--blue);padding:8px 12px;border-radius:999px;font-size:13px;font-weight:800;margin-bottom:18px}
+.badge span{width:8px;height:8px;background:#23c77a;border-radius:50%;box-shadow:0 0 0 5px #23c77a22}
+h1{font-size:clamp(38px,6vw,67px);line-height:1.03;letter-spacing:-3px;color:var(--navy)}
+h1 em{font-style:normal;color:var(--blue)}
+.hero p{font-size:17px;color:var(--muted);line-height:1.75;max-width:650px;margin:20px 0 28px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:13px 18px;border-radius:12px;font-weight:800;transition:.25s;display:inline-flex;align-items:center;gap:8px}
+.btn.primary{color:#fff;background:linear-gradient(135deg,var(--blue),#084a9c);box-shadow:0 12px 25px #0b63ce35}
+.btn.secondary{background:#fff;color:var(--navy);border:1px solid #dce5ef}
+.btn:hover{transform:translateY(-3px);box-shadow:0 15px 30px #082b5920}
+.hero-card{background:linear-gradient(145deg,#092e5d,#0b63ce);border-radius:28px;padding:25px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden;transform:perspective(900px) rotateY(-4deg);transition:.5s}
+.hero-card:hover{transform:perspective(900px) rotateY(0) translateY(-5px)}
+.hero-card:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-80px;top:-90px;background:#fff2}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.card-top small{opacity:.7}.card-icon{font-size:34px}
+.student{display:flex;gap:15px;align-items:center}
+.avatar{width:58px;height:58px;border-radius:18px;background:#ffffff20;display:grid;place-items:center;font-size:25px}
+.student strong{font-size:19px}.student span{font-size:13px;opacity:.72}
+.progress{margin-top:26px;background:#ffffff24;height:9px;border-radius:20px;overflow:hidden}
+.progress i{display:block;width:72%;height:100%;background:linear-gradient(90deg,#fff,var(--gold));border-radius:20px;animation:load 1.6s ease}
+@keyframes load{from{width:0}}
+.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.stat{background:#fff14;border:1px solid #ffffff20;border-radius:14px;padding:13px}.stat b{display:block;font-size:19px}.stat small{opacity:.65}
+
+.section{max-width:1180px;margin:auto;padding:55px 22px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}
+.section-head h2{font-size:30px;color:var(--navy)}
+.section-head p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{background:#fff;border:1px solid #e4ebf2;border-radius:20px;padding:22px;box-shadow:0 8px 30px #082b5908;transition:.3s}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.icon{width:46px;height:46px;border-radius:13px;background:#eaf4ff;color:var(--blue);display:grid;place-items:center;font-size:22px;margin-bottom:15px}
+.card h3{margin-bottom:8px}.card p{color:var(--muted);line-height:1.6;font-size:14px}
+.card button{margin-top:17px;color:var(--blue);background:#edf5ff;padding:9px 12px;border-radius:10px;font-weight:800}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step{position:relative;background:#fff;border:1px solid #e4ebf2;padding:20px;border-radius:18px}
+.num{font-size:13px;font-weight:900;color:var(--blue);margin-bottom:13px}
+.step h3{font-size:16px;margin-bottom:7px}.step p{font-size:13px;color:var(--muted);line-height:1.5}
+
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form-card{background:#fff;border:1px solid #e4ebf2;border-radius:20px;padding:24px}
+.form-card h3{margin-bottom:16px;color:var(--navy)}
+label{display:block;font-size:13px;font-weight:800;margin:12px 0 6px}
+input,select{width:100%;padding:12px;border:1px solid #d9e3ee;border-radius:10px;outline:none;background:#fbfdff}
+input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 4px #0b63ce12}
+.check{display:flex;gap:9px;align-items:center;margin:13px 0;color:var(--muted);font-size:13px}.check input{width:auto}
+.result{margin-top:15px;padding:14px;border-radius:12px;background:#f0f8ff;color:#175b91;display:none}
+.result.show{display:block;animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:scale(.96)}}
+
+.modal{position:fixed;inset:0;background:#04152b99;backdrop-filter:blur(7px);display:none;place-items:center;padding:18px;z-index:100}
+.modal.open{display:grid}
+.modal-box{width:min(520px,100%);background:#fff;border-radius:22px;padding:25px;box-shadow:0 25px 80px #0005;animation:modalIn .35s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.close{background:#eef3f8;width:35px;height:35px;border-radius:50%;font-size:18px}
+.login-tabs{display:flex;background:#eef4fa;padding:4px;border-radius:11px;margin:15px 0}.tab{flex:1;padding:10px;border-radius:8px;background:transparent;font-weight:800;color:#718095}.tab.active{background:#fff;color:var(--blue);box-shadow:0 2px 8px #0001}
+.notice{font-size:12px;color:#78879a;margin-top:12px;line-height:1.5}
+
+.toast{position:fixed;right:20px;bottom:20px;background:#102d50;color:#fff;padding:13px 16px;border-radius:12px;box-shadow:var(--shadow);transform:translateY(100px);opacity:0;transition:.35s;z-index:200}
+.toast.show{transform:translateY(0);opacity:1}
+
+footer{margin-top:35px;background:var(--navy);color:#fff;padding:28px 22px;text-align:center}
+footer p{opacity:.7;font-size:13px;margin-top:5px}
+.reveal{opacity:0;transform:translateY(20px);transition:.7s}.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:800px){
+ .navlinks{display:none}.menu{display:block}
+ .hero{grid-template-columns:1fr;padding-top:45px}.hero-card{transform:none}
+ .grid,.tools{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+ .grid,.tools,.steps{grid-template-columns:1fr}
+ h1{letter-spacing:-2px}.section{padding:38px 17px}.hero{padding:42px 17px 25px}
+ .nav-inner{padding:0 17px}.navlinks.mobile{display:flex;position:absolute;top:72px;left:0;right:0;background:#fff;padding:10px;flex-direction:column;border-bottom:1px solid #ddd}
+}
+</style>
+</head>
+<body>
+<div class="bg-orb orb1"></div><div class="bg-orb orb2"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand"><div class="logo"></div><div>POLBAN<span style="color:#0b63ce"> Student Hub</span></div></div>
+    <div class="navlinks" id="navlinks">
+      <button onclick="scrollToId('beranda')">Beranda</button>
+      <button onclick="scrollToId('fitur')">Fitur</button>
+      <button onclick="scrollToId('pendaftaran')">Pendaftaran</button>
+      <button onclick="scrollToId('bantuan')">Bantuan</button>
+    </div>
+    <button class="menu" onclick="toggleMenu()">☰</button>
+  </div>
+</nav>
+
+<main id="beranda">
+<section class="hero">
+  <div class="reveal">
+    <div class="badge"><span></span> Portal Persiapan Kuliah</div>
+    <h1>Siap Kuliah di <em>POLBAN?</em></h1>
+    <p>Platform demo untuk membantu calon mahasiswa mempersiapkan pendaftaran, memilih program studi, menghitung perkiraan biaya, dan mengelola checklist persiapan kuliah.</p>
+    <div class="actions">
+      <button class="btn primary" onclick="openModal('register')">🚀 Mulai Pendaftaran</button>
+      <button class="btn secondary" onclick="scrollToId('fitur')">Lihat Fitur ↓</button>
+    </div>
+  </div>
+  <div class="hero-card reveal">
+    <div class="card-top"><small>STUDENT DASHBOARD</small><div class="card-icon">🎓</div></div>
+    <div class="student"><div class="avatar">👨‍🎓</div><div><strong>Calon Mahasiswa</strong><br><span>POLBAN • Tahun Akademik 2026/2027</span></div></div>
+    <div class="progress"><i></i></div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12px;opacity:.75"><span>Progress persiapan</span><b>72%</b></div>
+    <div class="statrow"><div class="stat"><b>4/6</b><small>Checklist</small></div><div class="stat"><b>1</b><small>Prodi pilihan</small></div><div class="stat"><b>Ready</b><small>Status</small></div></div>
+  </div>
+</section>
+
+<section class="section reveal" id="fitur">
+  <div class="section-head"><div><h2>Fitur Utama</h2><p>Semua yang kamu butuhkan dalam satu dashboard.</p></div></div>
+  <div class="grid">
+    <div class="card"><div class="icon">📝</div><h3>Checklist Pendaftaran</h3><p>Catat dokumen dan langkah yang sudah atau belum disiapkan.</p><button onclick="openModal('check')">Buka Checklist →</button></div>
+    <div class="card"><div class="icon">🏫</div><h3>Eksplorasi Prodi</h3><p>Lihat contoh pilihan program studi dan bidang keahlian yang bisa kamu pertimbangkan.</p><button onclick="openModal('prodi')">Lihat Prodi →</button></div>
+    <div class="card"><div class="icon">💰</div><h3>Kalkulator Biaya</h3><p>Hitung simulasi sederhana kebutuhan biaya kuliah per semester.</p><button onclick="scrollToId('pendaftaran')">Hitung Sekarang →</button></div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="section-head"><div><h2>Alur Persiapan</h2><p>Ikuti langkah sederhana berikut.</p></div></div>
+  <div class="steps">
+    <div class="step"><div class="num">01 — DATA</div><h3>Buat Profil</h3><p>Isi data calon mahasiswa untuk simulasi dashboard.</p></div>
+    <div class="step"><div class="num">02 — PILIH</div><h3>Tentukan Prodi</h3><p>Pilih bidang yang sesuai minat dan rencana karier.</p></div>
+    <div class="step"><div class="num">03 — SIAPKAN</div><h3>Dokumen</h3><p>Pastikan berkas persyaratan tersedia dan terbaca.</p></div>
+    <div class="step"><div class="num">04 — CEK</div><h3>Verifikasi</h3><p>Periksa kembali data sebelum melakukan pendaftaran resmi.</p></div>
+  </div>
+</section>
+
+<section class="section reveal" id="pendaftaran">
+  <div class="section-head"><div><h2>Tools Pendaftaran</h2><p>Gunakan kalkulator dan formulir demo di bawah.</p></div></div>
+  <div class="tools">
+    <div class="form-card">
+      <h3>🧮 Simulasi Biaya Semester</h3>
+      <label>Biaya pendidikan (Rp)</label><input id="tuition" type="number" value="5000000" min="0">
+      <label>Transportasi (Rp)</label><input id="transport" type="number" value="800000" min="0">
+      <label>Keperluan belajar (Rp)</label><input id="study" type="number" value="500000" min="0">
+      <label>Durasi (semester)</label><select id="semester"><option value="1">1 semester</option><option value="2">2 semester</option></select>
+      <button class="btn primary" style="margin-top:15px;width:100%;justify-content:center" onclick="calculate()">Hitung Simulasi</button>
+      <div class="result" id="calcResult"></div>
+    </div>
+    <div class="form-card">
+      <h3>📋 Data Calon Mahasiswa</h3>
+      <label>Nama lengkap</label><input id="name" placeholder="Masukkan nama">
+      <label>Program studi pilihan</label>
+      <select id="major"><option value="">Pilih prodi</option><option>Teknik Informatika</option><option>Teknik Elektro</option><option>Teknik Mesin</option><option>Akuntansi</option><option>Administrasi Bisnis</option><option>Teknik Sipil</option></select>
+      <label>Email</label><input id="email" type="email" placeholder="nama@email.com">
+      <label><span class="check"><input type="checkbox" id="agree"> Saya sudah mengecek data yang diisi.</span></label>
+      <button class="btn primary" style="margin-top:3px;width:100%;justify-content:center" onclick="saveProfile()">Simpan Profil Demo</button>
+      <div class="result" id="profileResult"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="bantuan">
+  <div class="card" style="background:linear-gradient(135deg,#082b59,#0b63ce);color:#fff;text-align:center;padding:35px">
+    <div style="font-size:35px">💬</div><h2 style="margin:8px 0">Butuh Bantuan?</h2>
+    <p style="opacity:.8;margin-bottom:18px">Gunakan halaman resmi POLBAN untuk informasi penerimaan mahasiswa yang terbaru.</p>
+    <button class="btn" style="background:#fff;color:#082b59" onclick="officialSite()">Buka Situs Resmi POLBAN ↗</button>
+  </div>
+</section>
+</main>
+
+<footer><strong>POLBAN Student Hub</strong><p>Prototype aplikasi pendamping pendaftaran • Bukan portal resmi POLBAN.</p></footer>
+
+<div class="modal" id="modal">
+ <div class="modal-box">
+  <div class="modal-head"><h2 id="modalTitle">Login</h2><button class="close" onclick="closeModal()">×</button></div>
+  <div id="modalContent"></div>
+ </div>
+</div>
+<div class="toast" id="toast">Tersimpan ✓</div>
+
+<script>
+const modal=document.getElementById('modal');
+function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});document.getElementById('navlinks').classList.remove('mobile')}
+function toggleMenu(){document.getElementById('navlinks').classList.toggle('mobile')}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+function openModal(type){
+ let title='',content='';
+ if(type==='register'){
+  title='Akses Portal Demo';
+  content=`<div class="login-tabs"><button class="tab active">Daftar</button><button class="tab" onclick="toast('Mode login demo dipilih')">Login</button></div>
+  <label>Nama</label><input id="mname" placeholder="Nama lengkap">
+  <label>Email</label><input id="memail" type="email" placeholder="nama@email.com">
+  <label>Password demo</label><input type="password" placeholder="••••••••">
+  <button class="btn primary" style="width:100%;justify-content:center;margin-top:17px" onclick="startRegister()">Buat Akun Demo</button>
+  <p class="notice">Catatan: formulir ini hanya simulasi dan tidak mengirim data ke server POLBAN.</p>`;
+ } else if(type==='check'){
+  title='Checklist Pendaftaran';
+  content=`<div style="display:grid;gap:10px">${['Identitas diri','Ijazah / dokumen akademik','Pas foto','Dokumen pendukung','Memeriksa pilihan program studi','Mengecek jadwal pendaftaran resmi'].map((x,i)=>`<label class="check" style="margin:0;background:#f7faff;padding:12px;border-radius:10px"><input type="checkbox" onchange="updateCheck()"> ${x}</label>`).join('')}</div><div class="result show" id="checkResult">0/6 selesai</div>`;
+ } else {
+  title='Eksplorasi Program Studi';
+  content=`<p style="color:#6d7b8c;line-height:1.6;margin-bottom:14px">Contoh kategori prodi untuk membantu eksplorasi. Daftar dan nama program resmi dapat berubah, jadi cek informasi penerimaan terbaru.</p>
+  <div style="display:grid;gap:9px">${['💻 Teknologi Informasi','⚡ Teknik Elektro','⚙️ Teknik Mesin','🏗️ Teknik Sipil','📊 Akuntansi','💼 Administrasi Bisnis'].map(x=>`<div style="padding:13px;background:#f6faff;border-radius:10px;font-weight:800">${x}</div>`).join('')}</div>`;
+ }
+ document.getElementById('modalTitle').textContent=title;document.getElementById('modalContent').innerHTML=content;modal.classList.add('open');
+}
+function closeModal(){modal.classList.remove('open')}
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+function startRegister(){const n=document.getElementById('mname').value.trim();if(!n){toast('Isi nama terlebih dahulu');return}closeModal();document.getElementById('name').value=n;toast('Akun demo berhasil dibuat ✓')}
+function updateCheck(){const c=[...document.querySelectorAll('#modalContent input[type=checkbox]')];const n=c.filter(x=>x.checked).length;document.getElementById('checkResult').textContent=`${n}/6 selesai`;if(n===6)toast('Checklist lengkap! 🎉')}
+function calculate(){
+ const a=+document.getElementById('tuition').value||0,b=+document.getElementById('transport').value||0,c=+document.getElementById('study').value||0,s=+document.getElementById('semester').value;
+ const total=(a+b+c)*s;const el=document.getElementById('calcResult');el.innerHTML=`<b>Estimasi total: Rp ${total.toLocaleString('id-ID')}</b><br><small>Per semester sekitar Rp ${((a+b+c)).toLocaleString('id-ID')}. Ini hanya simulasi, bukan tarif resmi.</small>`;el.classList.add('show')
+}
+function saveProfile(){
+ const n=document.getElementById('name').value.trim(),m=document.getElementById('major').value,e=document.getElementById('email').value.trim(),ag=document.getElementById('agree').checked;
+ const el=document.getElementById('profileResult');
+ if(!n||!m||!e||!ag){el.textContent='Lengkapi nama, prodi, email, dan centang verifikasi.';el.classList.add('show');return}
+ localStorage.setItem('polbanDemoProfile',JSON.stringify({n,m,e}));
+ el.innerHTML=`<b>Profil tersimpan ✓</b><br>${n} • ${m}`;
+ el.classList.add('show');toast('Profil demo tersimpan ✓')
+}
+function officialSite(){window.open('https://www.polban.ac.id/','_blank')}
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(x=>observer.observe(x));
+const saved=localStorage.getItem('polbanDemoProfile');if(saved){try{const p=JSON.parse(saved);document.getElementById('name').value=p.n;document.getElementById('major').value=p.m;document.getElementById('email').value=p.e}catch(e){}}
+</script>
+</body>
+</html>
